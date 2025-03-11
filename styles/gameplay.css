@@ -1,0 +1,7 @@
+p				{ font-size: 1.2em; 
+                    font-family: 'Courier New', Courier, monospace;} 
+img				{ margin-left: auto; 
+                    margin-right: auto;
+                    width: 30%;
+                    display: inline-block; }
+button, input	{ font-weight: bold; } 
