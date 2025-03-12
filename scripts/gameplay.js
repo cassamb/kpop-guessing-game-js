@@ -11,6 +11,10 @@ var gPics = ["https:/ibighit.com/bts/images/profile/proof/member/bts-pc.jpg",
 var qCount = 0;             // Loop counter; current question
 var totalQs = qRefArray;    // Total number of questions
 
+var score = 0;
+var crrct = 0;
+var incrrct = 0;
+
 var mcRefArray = [0, 1, 2, 3];  // Reference array for the multiple choice options
 var answers = [];               // Array to populate choices
 
@@ -37,15 +41,12 @@ function shuffle(refArr) // Shuffles the given array [GOOD]
 
 function update()
 {
-    /*qCount++;
-
-    if (qCount > totalQs)
+    /*if (qCount = totalQs)
     {
         window.location.href = "/html/ending.html";
     }*/
     
     // Image Generation
-    
     updateImage(qRefArray[qCount]); // Obtaining current index from the already shuffled array [GOOD]
     updateChoices();
 }
@@ -59,16 +60,21 @@ function updateImage(index)
 
 function updateChoices()
 {
-    shuffle(mcRefArray);                // Shuffling the choice order
-    generateChoices(gNames[qCount]);    // Assigning the values to each button
-    setChoices();                       // Sets appearance of answer choices based on shuffled order
+    shuffle(mcRefArray);    // Shuffling the choice order
+    generateChoices();      // Assigning the values to each button
+    setChoices();           // Sets appearance of answer choices based on shuffled order
 }
 
-function generateChoices(crrctAns) // Generates 3 random and 1 correct choice [GOOD]
+function getCorrectAns() // Returns the group name that corresponds to the current image displayed
 {
-    answers[0] = crrctAns;  // The correct answer is always in index 0
-    var rIndex;             // Generates random index based on length of gNames array	
-        
+    return gNames[qRefArray[qCount]];
+}
+
+function generateChoices() // Generates 3 random and 1 correct choice [GOOD]
+{
+    answers[0] = getCorrectAns();  // The correct answer is always in index 0
+    var rIndex;             // Generates random index based on length of gNames array
+    
     for (var count = 1; count < 4; count++) // Using loop to assign values to rest of indexes (1, 2, and 3)
     {
         rIndex = Math.floor(Math.random() * gNames.length);	// Generate another random index
@@ -108,9 +114,24 @@ function setChoices() // Sets the randomized order of appearance for the answer 
         choice = document.getElementById("option" + n);
         choice.setAttribute("type", "button");
         choice.setAttribute("value", answers[nameIndex]);		// Assigning the option value (group name) based on "random" index
-        //choice.setAttribute("onclick", "check()");	// If option is clicked, check the answer
+        choice.setAttribute("onclick", "check('" + choice.value + "')");	// If option is clicked, check the answer
         ++optNum;
     } 
 }
+
+function check(userAns)
+{
+    if (userAns == getCorrectAns())
+    { 
+        console.log("Good! " + userAns + " is the correct answer!");
+        crrct++; 
+    } 
+    else
+    {
+        console.log("Sorry! " + getCorrectAns() + " is the correct answer!");
+        incrrct++;
+    }
+}
+
 
 window.addEventListener("load", init, false);
