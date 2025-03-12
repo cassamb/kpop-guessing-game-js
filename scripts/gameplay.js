@@ -13,13 +13,9 @@ var totalQs = qRefArray;    // Total number of questions
 
 function init()
 {
-    //Testing
-    //document.writeln("<p> Original Reference Array:" + qRefArray + " </p>");
-    shuffle(qRefArray); // Shuffling the reference array to determine question order
-    
-    document.writeln("<p> Shuffled Reference Array:" + qRefArray + " </p>");
 
-    update()
+    shuffle(qRefArray); // Shuffling the reference array to determine question order
+    update()            // Starting the main game loop
     
 }
 
@@ -37,23 +33,24 @@ function shuffle(refArr) // Shuffles the given array [GOOD]
 
 function update()
 {
+    /*qCount++;
+
+    if (qCount > totalQs)
+    {
+        window.location.href = "/html/ending.html";
+    }*/
     
     // Image Generation
-    document.writeln("<p> Current Group:" + qRefArray[qCount] + " </p>"); //Testing
+    
     updateImage(qRefArray[qCount]); // Obtaining current index from the already shuffled array [GOOD]
 
 }
 
 function updateImage(index)
 {
-    document.writeln("<p> Image Link:" + gPics[index] + " </p>"); //Testing
-    
     var randImg = document.getElementById("pic");
-    randImg.setAttribute("src", gPics[index]); // Incompatible data type
+    randImg.setAttribute("src", gPics[index]);
     randImg.setAttribute("alt", "Image of " + gNames[index]);
-
-    
-
 }
 
 
