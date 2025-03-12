@@ -7,9 +7,13 @@ var gPics = ["https:/ibighit.com/bts/images/profile/proof/member/bts-pc.jpg",
             "https://jyplevel2storage01.blob.core.windows.net:443/main/c05f26421ffd4dffb8399b59b0f067ec-%EA%B3%B5%EC%8B%9D%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80.jpg",
             "https://ibighit.com/txt/images/txt/profile/sanctuary/profile-kv.jpg"];
 
-// Question Tracking
+// Progress Tracking
 var qCount = 0;             // Loop counter; current question
 var totalQs = qRefArray;    // Total number of questions
+
+var mcRefArray = [0, 1, 2, 3];  // Reference array for the multiple choice options
+var answers = [];               // Array to populate choices
+
 
 function init()
 {
@@ -43,7 +47,7 @@ function update()
     // Image Generation
     
     updateImage(qRefArray[qCount]); // Obtaining current index from the already shuffled array [GOOD]
-
+    updateChoices();
 }
 
 function updateImage(index)
@@ -53,5 +57,60 @@ function updateImage(index)
     randImg.setAttribute("alt", "Image of " + gNames[index]);
 }
 
+function updateChoices()
+{
+    shuffle(mcRefArray);                // Shuffling the choice order
+    generateChoices(gNames[qCount]);    // Assigning the values to each button
+    setChoices();                       // Sets appearance of answer choices based on shuffled order
+}
+
+function generateChoices(crrctAns) // Generates 3 random and 1 correct choice [GOOD]
+{
+    answers[0] = crrctAns;  // The correct answer is always in index 0
+    var rIndex;             // Generates random index based on length of gNames array	
+        
+    for (var count = 1; count < 4; count++) // Using loop to assign values to rest of indexes (1, 2, and 3)
+    {
+        rIndex = Math.floor(Math.random() * gNames.length);	// Generate another random index
+            
+        if (isUnique(gNames[rIndex])) // If the given group is unique to the current list of choices ...
+        {
+            answers[count] = gNames[rIndex]; // Add it to the multiple choice list as an option
+        }
+        else
+        {
+            count--; // Increment value so comparison can be done again
+        }
+    }
+}
+
+function isUnique(ans) // Checks if the given choice is unique in the current lineup [GOOD]
+{
+    for (var c = 0; c < answers.length; c++)
+    {
+        if (answers[c] == ans)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+function setChoices() // Sets the randomized order of appearance for the answer choices
+{
+    var optNum = 0;
+
+    for (var n = 1; n <= 4; ++n) // Creating for loop to assign values to options (1, 2, 3, and 4)
+    {	
+        var nameIndex = mcRefArray[optNum]; // Selecting the group name from our shuffled (options) array
+
+        // Creating the buttons for our multiple choice answers, assigning the values, and adding event listeners
+        choice = document.getElementById("option" + n);
+        choice.setAttribute("type", "button");
+        choice.setAttribute("value", answers[nameIndex]);		// Assigning the option value (group name) based on "random" index
+        //choice.setAttribute("onclick", "check()");	// If option is clicked, check the answer
+        ++optNum;
+    } 
+}
 
 window.addEventListener("load", init, false);
