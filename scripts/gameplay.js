@@ -8,26 +8,23 @@ var gPics = ["https:/ibighit.com/bts/images/profile/proof/member/bts-pc.jpg",
             "https://ibighit.com/txt/images/txt/profile/sanctuary/profile-kv.jpg"];
 
 // Progress Tracking
-var qCount = 0;             // Loop counter; current question
-var totalQs = qRefArray;    // Total number of questions
+var qCount = 0;                     // Loop counter; current question offset by 1
+var totalQs = qRefArray.length;     // Total number of questions
 
 var score = 0;
 var crrct = 0;
-var incrrct = 0;
 
 var mcRefArray = [0, 1, 2, 3];  // Reference array for the multiple choice options
 var answers = [];               // Array to populate choices
 
 
-function init()
+function init() // Initializes the game properties and starts game
 {
-
     shuffle(qRefArray); // Shuffling the reference array to determine question order
     update()            // Starting the main game loop
-    
 }
 
-function shuffle(refArr) // Shuffles the given array [GOOD]
+function shuffle(refArr) // Shuffles the given array
 {
     for (var i = refArr.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1 ));
@@ -35,20 +32,28 @@ function shuffle(refArr) // Shuffles the given array [GOOD]
         refArr[i] = refArr[j];
         refArr[j] = temp;
     }
-
-    //document.writeln("<p> Shuffled Reference Array:" + qRefArray + " </p>");
 }
 
-function update()
+function update() // Main game loop
 {
-    /*if (qCount = totalQs)
-    {
-        window.location.href = "/html/ending.html";
-    }*/
+    updateProgress();  // Display user progress
     
     // Image Generation
-    updateImage(qRefArray[qCount]); // Obtaining current index from the already shuffled array [GOOD]
-    updateChoices();
+    updateImage(qRefArray[qCount]); // Update image for current question
+    updateChoices();                // Update and shuffle answer choices
+
+    if (qCount == totalQs) // Ending condition; no more questions to answer
+    {
+        window.location.href = "/html/ending.html"; // Move to ending page
+    }
+}
+
+function updateProgress()
+{
+    document.getElementById("qNum").innerHTML = "<h2> Question # " + (qCount + 1) + "</h2>";
+    
+    score = ( crrct / totalQs ) * 100;
+    document.getElementById("status").innerHTML = "<h3>Score: " + score + "%</h3>";
 }
 
 function updateImage(index)
@@ -61,8 +66,8 @@ function updateImage(index)
 function updateChoices()
 {
     shuffle(mcRefArray);    // Shuffling the choice order
-    generateChoices();      // Assigning the values to each button
-    setChoices();           // Sets appearance of answer choices based on shuffled order
+    generateChoices();      // Generates the multiple choice answers for current question
+    setChoices();           // Assigns each choice to a button
 }
 
 function getCorrectAns() // Returns the group name that corresponds to the current image displayed
@@ -70,14 +75,14 @@ function getCorrectAns() // Returns the group name that corresponds to the curre
     return gNames[qRefArray[qCount]];
 }
 
-function generateChoices() // Generates 3 random and 1 correct choice [GOOD]
+function generateChoices() 
 {
-    answers[0] = getCorrectAns();  // The correct answer is always in index 0
-    var rIndex;             // Generates random index based on length of gNames array
+    answers[0] = getCorrectAns(); // Correct answer is always in index 0
+    var rIndex;
     
-    for (var count = 1; count < 4; count++) // Using loop to assign values to rest of indexes (1, 2, and 3)
+    for (var count = 1; count < 4; count++) // Looping to assign values to rest of indexes (1, 2, and 3)
     {
-        rIndex = Math.floor(Math.random() * gNames.length);	// Generate another random index
+        rIndex = Math.floor(Math.random() * gNames.length);	// Generate random index
             
         if (isUnique(gNames[rIndex])) // If the given group is unique to the current list of choices ...
         {
@@ -85,12 +90,12 @@ function generateChoices() // Generates 3 random and 1 correct choice [GOOD]
         }
         else
         {
-            count--; // Increment value so comparison can be done again
+            count--; // Decrement counter so a different group can be generated
         }
     }
 }
 
-function isUnique(ans) // Checks if the given choice is unique in the current lineup [GOOD]
+function isUnique(ans) // Determines if the given choice is unique in the current lineup
 {
     for (var c = 0; c < answers.length; c++)
     {
@@ -102,36 +107,33 @@ function isUnique(ans) // Checks if the given choice is unique in the current li
     return true;
 }
 
-function setChoices() // Sets the randomized order of appearance for the answer choices
+function setChoices()
 {
     var optNum = 0;
 
-    for (var n = 1; n <= 4; ++n) // Creating for loop to assign values to options (1, 2, 3, and 4)
+    for (var n = 1; n <= 4; ++n) // Looping to assign values to multiple choice buttons (1, 2, 3, and 4)
     {	
         var nameIndex = mcRefArray[optNum]; // Selecting the group name from our shuffled (options) array
 
         // Creating the buttons for our multiple choice answers, assigning the values, and adding event listeners
         choice = document.getElementById("option" + n);
         choice.setAttribute("type", "button");
-        choice.setAttribute("value", answers[nameIndex]);		// Assigning the option value (group name) based on "random" index
-        choice.setAttribute("onclick", "check('" + choice.value + "')");	// If option is clicked, check the answer
+        choice.setAttribute("value", answers[nameIndex]);		           
+        choice.setAttribute("onclick", "check('" + choice.value + "')");	
         ++optNum;
     } 
 }
 
-function check(userAns)
+function check(userAns) // Validates the user's selection; onclick event
 {
     if (userAns == getCorrectAns())
     { 
-        console.log("Good! " + userAns + " is the correct answer!");
         crrct++; 
     } 
-    else
-    {
-        console.log("Sorry! " + getCorrectAns() + " is the correct answer!");
-        incrrct++;
-    }
-}
 
+    // Progress the game
+    ++qCount;
+    update();
+}
 
 window.addEventListener("load", init, false);
