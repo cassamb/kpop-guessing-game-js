@@ -17,12 +17,7 @@ var crrct = 0;
 var mcRefArray = [0, 1, 2, 3];  // Reference array for the multiple choice options
 var answers = [];               // Array to populate choices
 
-
-function init() // Initializes the game properties and starts game
-{
-    shuffle(qRefArray); // Shuffling the reference array to determine question order
-    update()            // Starting the main game loop
-}
+/* HELPER FUNCTIONS */
 
 function shuffle(refArr) // Shuffles the given array
 {
@@ -34,9 +29,37 @@ function shuffle(refArr) // Shuffles the given array
     }
 }
 
+function isUnique(ans) // Determines if the given choice is unique in the current lineup
+{
+    for (var c = 0; c < answers.length; c++)
+    {
+        if (answers[c] == ans)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+/* MAIN GAME FUNCTIONS */
+
+function init()
+{
+    shuffle(qRefArray); // Shuffling the reference array to determine question order
+}
+
+function start() // onclick function
+{
+    // Hiding welcome page elements and showing gameplay page elements
+    document.getElementsByClassName("welcome-page")[0].style.display = "none";
+    document.getElementsByClassName("game-page")[0].style.display = "block";
+    
+    update() // Starting the main game loop
+}
+
 function update() // Main game loop
 {
-    updateProgress();  // Display user progress
+    updateProgress();  // Update user progress (question number and score)
     
     // Image Generation
     updateImage(qRefArray[qCount]); // Update image for current question
@@ -44,16 +67,16 @@ function update() // Main game loop
 
     if (qCount == totalQs) // Ending condition; no more questions to answer
     {
-        window.location.href = "/html/ending.html"; // Move to ending page
+        end();
     }
 }
 
 function updateProgress()
 {
-    document.getElementById("qNum").innerHTML = "<h2> Question # " + (qCount + 1) + "</h2>";
+    document.getElementById("qstn-num").innerHTML = "<h2> Question # " + (qCount + 1) + "</h2>";
     
     score = ( crrct / totalQs ) * 100;
-    document.getElementById("status").innerHTML = "<h3>Score: " + score + "%</h3>";
+    document.getElementById("score").innerHTML = "<h3>Score: " + score + "%</h3>";
 }
 
 function updateImage(index)
@@ -95,18 +118,6 @@ function generateChoices()
     }
 }
 
-function isUnique(ans) // Determines if the given choice is unique in the current lineup
-{
-    for (var c = 0; c < answers.length; c++)
-    {
-        if (answers[c] == ans)
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
 function setChoices()
 {
     var optNum = 0;
@@ -116,7 +127,7 @@ function setChoices()
         var nameIndex = mcRefArray[optNum]; // Selecting the group name from our shuffled (options) array
 
         // Creating the buttons for our multiple choice answers, assigning the values, and adding event listeners
-        choice = document.getElementById("option" + n);
+        choice = document.getElementById("opt-" + n);
         choice.setAttribute("type", "button");
         choice.setAttribute("value", answers[nameIndex]);		           
         choice.setAttribute("onclick", "check('" + choice.value + "')");	
@@ -134,6 +145,14 @@ function check(userAns) // Validates the user's selection; onclick event
     // Progress the game
     ++qCount;
     update();
+}
+
+function end() // Displays ending page elements
+{
+    document.getElementsByClassName("game-page")[0].style.display = "none";
+    document.getElementsByClassName("ending-page")[0].style.display = "block";
+            
+    document.getElementById("final-score").textContent = "Your final score is " +  score + "%";
 }
 
 window.addEventListener("load", init, false);
