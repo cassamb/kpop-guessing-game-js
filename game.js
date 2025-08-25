@@ -1,11 +1,26 @@
 // Global Variables
-var qRefArray = [0, 1, 2, 3, 4];
-var gNames = ["BTS", "TWICE", "Stray Kids", "ITZY", "TXT"];
+var qRefArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+var gNames = ["BTS", "TWICE", "Stray Kids", "ITZY", "TXT", "BLACKPINK", "ATEEZ", "ENHYPEN", "LE SSERAFIM", "SEVENTEEN", "aespa", "NCT", "NMIXX", "P1Harmony", "IVE", "TREASURE", "ILLIT", "THE BOYZ", "NewJeans", "MONSTA X"];
 var gPics = ["https:/ibighit.com/bts/images/profile/proof/member/bts-pc.jpg",
             "https://jyplevel2storage01.blob.core.windows.net:443/main/4391d47ab60d4297a862640273e72fa9-10.%20%EB%8B%A8%EC%B2%B4%201.jpg",
             "https://jyplevel2storage01.blob.core.windows.net:443/main/bbefbd20d8c94610a023642bb735e6a1-AS_3887-F3(crop)%20%EB%B3%B5%EC%82%AC%EB%B3%B8.jpg",
-            "https://jyplevel2storage01.blob.core.windows.net:443/main/c05f26421ffd4dffb8399b59b0f067ec-%EA%B3%B5%EC%8B%9D%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80.jpg",
-            "https://ibighit.com/txt/images/txt/profile/sanctuary/profile-kv.jpg"];
+            "https://jyplevel2storage01.blob.core.windows.net/main/185c7cb777304d9187fff677fd3eee55-NAVER.jpg",
+            "https://hybecorp.com/archive/vDx3oMUWg4aKtVsl7uiImLJgJOuEZBMRUdWXsreBjFQhc4QnUpCdZca1EWBgIO14s50CfCAawKY7g0rSu0psy79WuWUNeRYnEZR1C8nXYFqDxyQcNI94f5Ij512EsC1l.jpg",
+            "https://ygfamily.com/contents/images/2025/07/profile%282560%29_1.jpg",
+            "https://kpopping.com/documents/73/1/1200/ATEEZ-fullPicture(21).webp",
+            "https://d1pod9gflbwpzj.cloudfront.net/main/b8af3a90-fa70-447f-95ec-21e84228e6dc.jpg",
+            "https://kpopping.com/documents/94/3/1200/LE-SSERAFIM-fullPicture(36).webp",
+            "https://hybecorp.com/archive/C2tcsfmIDDEpknA5Wk1wDKmymZvGi8QwAkamxF7njjdqxmohdgka1N423Nb2EYjofBv3ug9s4BQ2lLzsbOgNG4MQqGBUmv1Kn7DGb8qY8yQ1VoDu3TZ7r1R4PG94U5Jq.jpg",
+            "https://kpopping.com/documents/3f/2/1200/aespa-fullPicture(39).webp",
+            "https://kpopping.com/documents/c4/3/1200/NCT-fullPicture(2).webp",
+            "https://kpopping.com/documents/b3/5/1200/NMIXX-fullPicture(35).webp",
+            "https://fncent.com/files/2025/04/25/992a2c58b253fa1c290bf095dedb6a8e121851.jpg",
+            "https://kpopping.com/documents/69/1/1200/IVE-fullPicture(36).webp",
+            "https://img.imageimg.net/artist/treasure/img/profile_group_1000302.jpg",
+            "https://d1pod9gflbwpzj.cloudfront.net/main/17e305c8-831f-4db6-aae8-e6d7f89706d9.jpg",
+            "https://kpopping.com/documents/32/1/1200/THE-BOYZ-fullPicture(13).webp",
+            "https://hybecorp.com/archive/N2tJEAwYKDre9qDEDkDeLNEsNyjZpoLYLHTmbyUGyv3eZlNjskv5CaqcVSt6ZEFpg2RzSmZpiruHkMwejtjW4zxD4I9HBfuLJG6XziXtiFBvjr3gawUZVRsfnXEhgUNI.png",
+            "https://kpopping.com/documents/74/1/1200/MONSTA-X-fullPicture(8).webp",];
 
 // Progress Tracking
 var qCount = 0;                     // Loop counter; current question offset by 1

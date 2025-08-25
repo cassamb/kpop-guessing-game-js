@@ -3,16 +3,18 @@
 This is the first of three iterations in the Kpop Guessing Game series which also includes the [kpop-guessing-game-php](https://github.com/cassamb/kpop-guessing-game-php) and [kpop-guessing-game-ajax](https://github.com/cassamb/kpop-guessing-game-ajax) projects.
 
 ![Static Badge](https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge&logo=javascript&logoColor=white)
-![Static Badge](https://img.shields.io/badge/HTML-orange?style=for-the-badge&logo=HTML5&logoColor=white)
-![Static Badge](https://img.shields.io/badge/CSS-blue?style=for-the-badge&logo=CSS&logoColor=white)
+![Static Badge](https://img.shields.io/badge/HTML-%23e34c26?style=for-the-badge&logo=HTML5&logoColor=white)
+![Static Badge](https://img.shields.io/badge/CSS-%231572B6?style=for-the-badge&logo=CSS&logoColor=white)
 
-<u>**Disclaimer:**</u> Due to the knowledge and experience gained since this project was originally commissioned in 2019, some specifications (i.e., certain technologies, requirements, and practices) have been modified and/or removed to improve the overall quality of the program while maintaining the original intent. **Although the specifications for this iteration remained relatively the same (due to it's simple nature), more notable modifications are made in future iterations as the program expands and will be addressed as necessary.**
+**Disclaimer:** Due to the knowledge and experience gained since this project was originally commissioned in 2019, some specifications (i.e., certain technologies, requirements, and practices) have been modified and/or removed to improve the overall quality of the program while maintaining the original intent. **Although the specifications for this iteration remained relatively the same (due to it's simple nature), more notable modifications are made in future iterations as the program expands and will be addressed as necessary.**
 
 ## Introduction
 
 ### Background
 
-This project was originally commissioned by Professor Kumar of Nova Southeastern University's College of Computing and Engineering for the 2019 Web Programming and Design course. Students were tasked with creating a flashcard quiz game on the topic of their choosing. The **K-pop genre** was selected as the subject matter for this implementation due to personal interest as well as the music genre's growing popularity at the time. This project was intended to demonstrate one’s understanding of web software design as it pertains to front-end and middle layer processes as well as the fundamentals game development. This project was tested in the Google Chrome web browser and developed using JavaScript, HTML, and CSS in the Visual Studio Code editor.
+This project was originally commissioned by Professor Kumar of Nova Southeastern University's College of Computing and Engineering for the 2019 Web Programming and Design course. Students were tasked with creating a flashcard quiz game on the topic of their choosing. The **K-pop genre** was selected as the subject matter for this implementation due to personal interest as well as the music genre's growing popularity at the time.
+
+    This project was intended to demonstrate one’s understanding of web software design as it pertains to front-end and middle layer processes as well as the fundamentals game development. This project was tested in the Google Chrome web browser and developed using JavaScript, HTML, and CSS in the Visual Studio Code editor.
 
 ### Project Overview
 
@@ -37,6 +39,9 @@ The UI design was left to the student’s discretion, so there was a freedom to 
   * Multiple Choice Buttons
 * <u>**Ending Page**</u>: Page that is displayed once the user completes the game and displays the user's final score.
   * Final Score
+  * **Home Button**
+
+The **bold** elements denote components of the UI that were not required in the original assignment specification; however, they are included in this implementation in an effort to improve the usability and user experience while operating the program.
 
 ### Logical Requirements
 
